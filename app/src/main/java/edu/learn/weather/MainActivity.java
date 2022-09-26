@@ -1,10 +1,5 @@
 package edu.learn.weather;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import cz.msebera.android.httpclient.Header;
-
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
@@ -14,16 +9,13 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.JsonHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import org.json.JSONObject;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,12 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         // TODO: Add an OnClickListener to the changeCityButton here:
-        changeCityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(MainActivity.this, ChangeCityController.class);
-                startActivity(myIntent);
-            }
+        changeCityButton.setOnClickListener(view -> {
+            Intent myIntent = new Intent(MainActivity.this, ChangeCityController.class);
+            startActivity(myIntent);
         });
 
     }
@@ -86,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         String city= intent.getStringExtra("City");
 
         if(city != null){
-            getWeatherForNewCity(city);
+            getWeatherForNewCity();
         }else {
             Log.i("onResume", "onLocationChanged() calling");
             getWeatherForCurrentLocation();
@@ -96,11 +85,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     // TODO: Add getWeatherForNewCity(String city) here:
-    private void getWeatherForNewCity(String city){
-        RequestParams params2 = new RequestParams();
-        params2.put("q",city);
-        params2.put("appid",APP_ID);
-        letsDoSomeNetworking(params2);
+    private void getWeatherForNewCity(){
+        letsDoSomeNetworking();
     }
 
 
@@ -116,13 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.i("Latitude", latitude);
                 Log.i("Longitude", longitude);
-
-                RequestParams params = new RequestParams();
-                params.put("lat",latitude);
-                params.put("lon",longitude);
-                params.put("appid",APP_ID);
                 //params.put("query",CITY);
-                letsDoSomeNetworking(params);
+                letsDoSomeNetworking();
 
             }
 
@@ -168,25 +149,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // TODO: Add letsDoSomeNetworking(RequestParams params) here:
-    public void letsDoSomeNetworking(RequestParams params){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(WEATHER_URL,params, new JsonHttpResponseHandler(){
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response){
-                Log.i("Message Received", response.toString());
-                WeatherDataModel weatherData = WeatherDataModel.fromJSON(response);
-                assert weatherData != null;
-                updateUI(weatherData);
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable e, JSONObject response){
-                Log.e("Failed", e.toString());
-                Log.i("Failed Code", Integer.toString(statusCode));
-            }
-        });
+    public void letsDoSomeNetworking(){
     }
 
 
