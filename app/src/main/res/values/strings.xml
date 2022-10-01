@@ -11,8 +11,15 @@
     <string name="location_iv_desc">Location Icon</string>
     <string name="dropdown_iv_desc">Dropdown Icon</string>
     <string name="current_weather_desc">Current Weather Icon</string>
+    <string name="wind_icon_desc">Wind Icon</string>
+    <string name="humidity_icon_desc">Humidity Icon</string>
     <string name="city_weather_data_iv_desc">City Weather Data Icon</string>
     <string name="city_name">Varanasi</string>
     <string name="current_weather">Its hot</string>
+    <string name="temp">30</string>
+    <string name="wind_value">2km/h</string>
+    <string name="humidity_value">32 %</string>
+    <string name="current_day">Today, 01 Oct</string>
+    <string name="current_time">10:00 AM</string>
 
 </resources>
