@@ -20,21 +20,13 @@ public class ChangeCityController extends AppCompatActivity {
         final EditText editTextField = findViewById(R.id.queryET);
         ImageButton backButton = findViewById(R.id.backButton);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        editTextField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                String newCity = editTextField.getText().toString();
-                Intent cityIntent = new Intent(ChangeCityController.this,MainActivity.class);
-                cityIntent.putExtra("City",newCity);
-                startActivity(cityIntent);
-                return false;
-            }
+        backButton.setOnClickListener(view -> finish());
+        editTextField.setOnEditorActionListener((textView, i, keyEvent) -> {
+            String newCity = editTextField.getText().toString();
+            Intent cityIntent = new Intent(ChangeCityController.this,MainActivity.class);
+            cityIntent.putExtra("City",newCity);
+            startActivity(cityIntent);
+            return false;
         });
     }
 }
